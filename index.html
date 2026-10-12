@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sprint Colombo 2027 Proposal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,500;0,600;0,700;0,800;1,700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --harbour:#0B0E1C; --deep:#05060D; --sand:#F4F5F8; --foam:#FFFFFF;
+  --red:#FF4B2B; --sun:#FFC23D; --sea:#36A9FF;
+  --bg:var(--deep); --panel:#0E1222; --ink:var(--sand); --muted:#9AA1B6; --line:rgba(244,245,248,.13);
+  --display:"Barlow Condensed","Arial Narrow",Impact,sans-serif;
+  --body:"Barlow","Helvetica Neue",Arial,sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+:root[data-theme="light"]{ --sun:#A86A00; --bg:#F4F5F8; --panel:#FFFFFF; --ink:#05060D; --muted:#555C70; --line:rgba(5,6,13,.14); }
+:root[data-theme="dark"]{ --bg:#05060D; --panel:#0E1222; --ink:#F4F5F8; --muted:#9AA1B6; --line:rgba(244,245,248,.13); }
+html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;overflow:hidden;-webkit-font-smoothing:antialiased}
+.app{height:100%;display:grid;grid-template-rows:auto 1fr auto}
+
+/* header */
+header{display:flex;justify-content:space-between;align-items:center;padding:16px clamp(18px,4vw,48px);border-bottom:1px solid var(--line)}
+.brand{font-family:var(--display);font-size:18px;letter-spacing:.06em;text-transform:uppercase}
+.brand b{font-weight:800}
+.brand span{color:var(--muted);font-weight:500}
+.hint{color:var(--muted);font-size:13px}
+.theme{background:none;border:1px solid var(--line);color:var(--ink);border-radius:20px;padding:4px 12px;font:inherit;font-size:13px;cursor:pointer;margin-left:12px}
+
+/* stage */
+.stage{position:relative;overflow:hidden}
+.slide{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;padding:clamp(20px,4vh,48px) clamp(18px,5vw,80px) clamp(16px,3vh,32px);opacity:0;visibility:hidden;transform:translateX(24px);transition:opacity .45s ease,transform .45s ease,visibility 0s .45s}
+.slide.on{opacity:1;visibility:visible;transform:none;transition:opacity .45s ease,transform .45s ease}
+.slide.back{transform:translateX(-24px)}
+.inner{max-width:1180px;margin:0 auto}
+.sec{font-family:var(--display);font-weight:600;font-size:15px;letter-spacing:.08em;color:var(--red);text-transform:uppercase;margin:0 0 14px}
+h1,h2,h3{font-family:var(--display);margin:0;line-height:.95;letter-spacing:-.005em}
+h1{font-size:clamp(52px,min(9vw,15vh),132px);font-weight:800;text-transform:uppercase}
+h2{font-size:clamp(32px,min(4.4vw,7.2vh),64px);font-weight:800;text-transform:uppercase;max-width:22ch;margin-bottom:22px}
+h3{font-size:24px;font-weight:700;text-transform:uppercase;letter-spacing:.01em;margin-bottom:6px}
+p{margin:0 0 12px;max-width:62ch}
+.lead{font-size:20px;color:var(--muted);max-width:56ch}
+.muted{color:var(--muted)}
+.grid{display:grid;gap:18px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+.box{border:1px solid var(--line);padding:22px;background:var(--panel)}
+.box p{color:var(--muted);margin:0}
+.rule{border-top:3px solid var(--red);padding-top:14px}
+.rule.sea{border-color:var(--sea)} .rule.sun{border-color:var(--sun)}
+.tag{display:inline-block;font-family:var(--display);font-weight:600;font-size:14px;letter-spacing:.05em;text-transform:uppercase;padding:3px 10px;border:1px solid currentColor;margin-top:12px}
+.t-red{color:var(--red)} .t-sea{color:var(--sea)} .t-sun{color:var(--sun)}
+ul.clean{list-style:none;padding:0;margin:0}
+ul.clean li{padding:10px 0;border-bottom:1px solid var(--line);display:flex;gap:12px}
+ul.clean li::before{content:"";flex:0 0 8px;height:8px;margin-top:9px;background:var(--red);transform:rotate(45deg)}
+
+/* cover */
+.cover{display:flex;flex-direction:column;justify-content:center;min-height:100%}
+.cover .kicker{font-family:var(--display);font-size:20px;font-weight:600;color:var(--sun);text-transform:uppercase;letter-spacing:.06em;margin-bottom:18px}
+.cover h1 .l2{display:block;color:transparent;-webkit-text-stroke:2px var(--ink)}
+.cover h1 .l3{display:block;color:var(--red)}
+.cover .lead{margin-top:26px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.chips span{border:1px solid var(--line);padding:5px 12px;font-size:14px}
+.ticker{overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:40px;white-space:nowrap}
+.ticker div{display:inline-block;padding:12px 0;font-family:var(--display);font-size:22px;font-weight:700;text-transform:uppercase;animation:tick 40s linear infinite}
+.ticker i{color:var(--red);font-style:normal;margin:0 18px}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+/* film storyboard */
+.board{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:4px;margin-bottom:26px}
+.frame{aspect-ratio:16/10;background:linear-gradient(180deg,#141A33,#05060D);color:#F4F5F8;padding:18px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+.frame::after{content:"";position:absolute;left:0;right:0;bottom:0;height:38%;background:repeating-linear-gradient(-8deg,rgba(54,169,255,.18) 0 6px,transparent 6px 14px)}
+.frame small{font-size:12px;opacity:.7;position:relative;z-index:1}
+.frame q{font-family:var(--display);font-size:clamp(22px,2.4vw,30px);font-weight:700;line-height:1.05;quotes:none;position:relative;z-index:1}
+.frame.last{background:var(--red)} .frame.last::after{display:none}
+.frame.last q{font-size:20px}
+
+/* quote */
+.big-quote{font-family:var(--display);font-weight:700;font-style:italic;font-size:clamp(28px,3.6vw,46px);line-height:1.08;border-left:6px solid var(--red);padding:6px 0 6px 24px;margin:28px 0;max-width:30ch}
+
+/* sponsors interactive */
+.own{display:grid;grid-template-columns:minmax(220px,300px) 1fr;gap:18px}
+.own .list{display:flex;flex-direction:column;gap:6px}
+.own button{all:unset;cursor:pointer;padding:8px 14px;border:1px solid var(--line);font-family:var(--display);font-size:18px;font-weight:600;text-transform:uppercase;display:flex;justify-content:space-between}
+.own button:focus-visible,.phase:focus-visible,.nav button:focus-visible,.theme:focus-visible{outline:2px solid var(--sun);outline-offset:2px}
+.own button[aria-selected="true"]{background:var(--red);color:#fff;border-color:var(--red)}
+.own .detail{background:var(--panel);border:1px solid var(--line);padding:30px;display:flex;flex-direction:column;justify-content:center}
+.own .detail .what{font-family:var(--display);font-size:clamp(30px,4vw,52px);font-weight:800;text-transform:uppercase;line-height:1}
+@media (max-width:720px){.own{grid-template-columns:1fr}}
+
+/* journey */
+.journey{display:flex;flex-wrap:wrap;align-items:stretch;gap:0;margin:26px 0}
+.journey div{flex:1 1 170px;padding:20px;border:1px solid var(--line);background:var(--panel);position:relative}
+.journey div:last-child{background:var(--red);color:#fff;border-color:var(--red)}
+.journey b{font-family:var(--display);font-size:26px;text-transform:uppercase;display:block;line-height:1}
+.journey small{color:inherit;opacity:.75}
+
+/* rollout */
+.phases{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:18px}
+.phase{all:unset;cursor:pointer;padding:14px;border-top:4px solid var(--line);background:var(--panel)}
+.phase b{display:block;font-family:var(--display);font-size:20px;text-transform:uppercase;line-height:1.05}
+.phase small{color:var(--muted)}
+.phase[aria-selected="true"]{border-top-color:var(--red)}
+.phase-body{border:1px solid var(--line);padding:26px;background:var(--panel)}
+.phase-body h3{font-size:34px}
+.phase-body .chips span{background:var(--bg)}
+@media (max-width:820px){.phases{grid-template-columns:1fr 1fr}}
+
+/* close */
+.close h1{font-size:clamp(48px,8vw,112px)}
+.credits{display:flex;flex-wrap:wrap;gap:40px;margin-top:40px;padding-top:20px;border-top:1px solid var(--line);font-size:15px}
+.credits a{color:var(--ink)}
+
+/* footer: 70.3 course progress */
+footer{padding:12px clamp(18px,4vw,48px) 14px;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center}
+.course{position:relative}
+.legs{display:flex;height:8px;gap:3px}
+.legs span{display:block;height:100%;opacity:.35}
+.legs .s{flex:1;background:var(--sea)} .legs .b{flex:1;background:var(--sun)} .legs .r{flex:1;background:var(--red)}
+.fill{position:absolute;top:0;left:0;height:8px;background:var(--ink);opacity:.9;mix-blend-mode:normal;transition:width .45s ease;clip-path:inset(0)}
+.labels{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:6px}
+.nav{display:flex;align-items:center;gap:10px;font-family:var(--display);font-size:18px}
+.nav button{all:unset;cursor:pointer;width:38px;height:38px;border:1px solid var(--line);display:grid;place-items:center;font-size:20px}
+.nav button:disabled{opacity:.3;cursor:default}
+.count b{font-weight:800}
+@media (prefers-reduced-motion:reduce){.slide,.fill{transition:none}.ticker div{animation:none}}
+@media (max-width:600px){.hint{display:none}body{font-size:16px}}
+.cd{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 6px}
+.cd span{font-family:var(--display);font-weight:800;font-size:46px;line-height:1;width:72px;height:80px;display:grid;place-items:center;border:1px solid var(--line);background:var(--panel)}
+.cd span:last-child{background:var(--red);border-color:var(--red);color:#fff}
+.msgs{list-style:none;padding:0;margin:0}
+.msgs li{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:clamp(30px,4.6vw,62px);line-height:1;padding:10px 0;border-bottom:1px solid var(--line)}
+.msgs li:nth-child(3n+1){color:var(--red)}
+.creators{display:flex;flex-wrap:wrap;gap:8px}
+.creators a{border:1px solid var(--line);padding:6px 12px;text-decoration:none;color:var(--ink);font-size:15px}
+.creators a:hover{border-color:var(--red)}
+.alert{border-left:4px solid var(--sun);padding:10px 16px;background:var(--panel);margin-top:20px;max-width:70ch}
+.cal-key{display:flex;flex-wrap:wrap;gap:16px;align-items:center;margin-bottom:14px;font-size:15px}
+.cal-key .k{display:flex;align-items:center;gap:8px}
+.cal-key .k::before{content:"";width:14px;height:14px;display:inline-block}
+.cal-key .reel::before{background:var(--red)} .cal-key .static::before{background:var(--sea)}
+.cal-key b{font-family:var(--display);font-size:24px;font-weight:800}
+.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
+.cal .dow{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;padding:2px 6px}
+.cal .day{min-height:62px;background:var(--panel);border:1px solid var(--line);padding:6px}
+.cal .day.out{background:none;border-color:transparent}
+.cal .day.empty{opacity:.55}
+.cal .n{font-size:12px;color:var(--muted);font-weight:600}
+.cal .wd{display:none}
+.cal .it{overflow-wrap:anywhere;margin-top:5px;padding:5px 7px;border-left:3px solid;font-size:12.5px;line-height:1.25;font-weight:600}
+.cal .it b{display:block;font-size:10px;letter-spacing:.07em;text-transform:uppercase;margin-bottom:2px}
+.cal .it small{display:block;font-weight:400;color:var(--muted);margin-top:2px}
+.cal .it.reel{border-color:var(--red);background:rgba(255,75,43,.13)} .cal .it.reel b{color:var(--red)}
+.cal .it.static{border-color:var(--sea);background:rgba(54,169,255,.13)} .cal .it.static b{color:var(--sea)}
+@media (max-width:760px){
+  .cal{grid-template-columns:1fr}
+  .cal .dow,.cal .day.out,.cal .day.empty{display:none}
+  .cal .day{min-height:0;display:grid;grid-template-columns:64px 1fr;gap:10px;align-items:start}
+  .cal .wd{display:inline}
+  .cal .it{margin-top:0}
+}
+.tbl{width:100%;border-collapse:collapse;font-size:15px}
+.tbl th{padding-top:6px!important;padding-bottom:6px!important;text-align:left;font-family:var(--display);font-weight:700;font-size:15px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);padding:10px 12px;border-bottom:2px solid var(--line)}
+.tbl td{padding:8px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl td:first-child{font-weight:600}
+.tbl .muted{font-size:14px}
+.tblwrap{overflow-x:auto}
+@media (max-width:700px){.tbl,.tbl tbody,.tbl tr,.tbl td{display:block;width:100%}.tbl thead{display:none}.tbl tr{border-bottom:1px solid var(--line);padding:10px 0}.tbl td{border:0;padding:3px 0}.tbl td[data-l]::before{content:attr(data-l);display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2px;background:var(--line);border:1px solid var(--line)}
+.facts div{background:var(--panel);padding:18px}
+.facts small{display:block;color:var(--muted);font-size:13px;margin-bottom:4px}
+.facts b{font-family:var(--display);font-size:26px;font-weight:700;text-transform:uppercase;line-height:1.05;display:block}
+.facts span{display:block;color:var(--muted);font-size:14px;margin-top:4px}
+.tbc{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--sun);border:1px solid var(--sun);padding:1px 6px;margin-left:6px;vertical-align:middle}
+.target{display:grid;grid-template-columns:auto 1fr;gap:40px;align-items:end}
+.target .big{white-space:nowrap;font-family:var(--display);font-weight:800;font-size:clamp(64px,9.5vw,150px);line-height:.8;color:var(--red)}
+.steps4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;align-items:end;height:220px;margin-top:10px}
+.steps4 .bar{background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--red);display:flex;flex-direction:column;justify-content:flex-start;padding:10px}
+.steps4 .bar b{font-family:var(--display);font-size:34px;font-weight:800;line-height:1}
+.steps4 .bar small{color:var(--muted)}
+@media (max-width:760px){.target{grid-template-columns:1fr;gap:16px}.steps4{height:180px}}
+.formats{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.formats .f{border:1px solid var(--line);background:var(--panel);padding:20px;display:flex;flex-direction:column;gap:10px}
+.formats .f h3{font-size:32px}
+.legs3{display:flex;gap:3px;height:8px}
+.legs3 i{display:block;height:100%}
+.legs3 .sw{background:var(--sea)} .legs3 .bk{background:var(--sun)} .legs3 .rn{background:var(--red)}
+.formats .dist{font-size:15px;font-weight:600}
+.formats .concept{font-family:var(--display);font-style:italic;font-weight:700;font-size:20px;line-height:1.1}
+.split{display:flex;height:54px;margin:18px 0 10px}
+.split div{display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:18px;color:#05060D;text-transform:uppercase;padding:0 6px;text-align:center;line-height:1}
+.money{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.money .box b.v{display:block;font-family:var(--display);font-weight:800;font-size:44px;line-height:1;color:var(--ink);margin:6px 0}
+.check{list-style:none;padding:0;margin:0;columns:2 320px;column-gap:32px}
+.check li{break-inside:avoid;padding:10px 0 10px 32px;position:relative;border-bottom:1px solid var(--line)}
+.check li::before{content:"";position:absolute;left:0;top:13px;width:16px;height:16px;border:2px solid var(--sun)}
+.flow{display:flex;flex-wrap:wrap;gap:6px;align-items:stretch;margin:18px 0}
+.flow div{flex:1 1 150px;background:var(--panel);border:1px solid var(--line);padding:14px;font-size:15px}
+.flow div b{display:block;font-family:var(--display);font-size:20px;text-transform:uppercase;line-height:1.05;margin-bottom:4px}
+.flow div:last-child{background:var(--red);border-color:var(--red);color:#fff}
+.phases.six{grid-template-columns:repeat(6,1fr)}
+@media (max-width:900px){.phases.six{grid-template-columns:repeat(2,1fr)}}
+.facts{grid-template-columns:repeat(4,1fr)}
+@media (max-width:900px){.facts{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.facts{grid-template-columns:1fr}}
+.steps4 .bar{min-height:74px;min-width:0;overflow:hidden}
+@media (max-width:600px){.steps4{gap:5px}.steps4 .bar{padding:8px 6px}.steps4 .bar b{font-size:24px}}
+.split div{min-width:0;overflow:hidden;font-size:clamp(11px,1.3vw,18px)}
+@media (max-width:600px){.split{height:auto;flex-wrap:wrap}.split div{flex-basis:50%!important;height:44px}.target .big{font-size:56px}}
+.amb{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.amb .card{background:var(--panel);border:1px solid var(--line);padding:22px;display:flex;flex-direction:column;gap:10px}
+.amb .card .role{font-size:13px;color:var(--muted)}
+.amb .card h3{font-size:34px;line-height:1}
+.amb .card .who{font-size:15px}
+.amb .card .fr{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.amb .card .chips{margin-top:0}
+.amb .card:nth-child(1){border-top:4px solid var(--red)} .amb .card:nth-child(2){border-top:4px solid var(--sea)} .amb .card:nth-child(3){border-top:4px solid var(--sun)}
+@media (max-width:860px){.amb{grid-template-columns:1fr}}
+@media (min-width:761px) and (max-height:820px){.cal .it small{display:none}}
+.tbl tr.tot td{border-top:2px solid var(--line);font-weight:700}
+.note{font-size:14px;color:var(--muted);margin-top:16px;max-width:80ch}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+  <div class="brand"><b>Serendib</b> <span>Multisport · Sprint Colombo 2027</span></div>
+  <div><span class="hint">← → to navigate</span><button class="theme" id="theme" aria-label="Toggle light or dark theme">Theme</button></div>
+</header>
+
+<main class="stage" id="stage">
+
+<section class="slide" data-title="Cover"><div class="inner cover">
+  <div class="kicker">Content strategy proposal · October 2026 – February 2027</div>
+  <h1>Colombo.<span class="l2">Are you</span><span class="l3">ready?</span></h1>
+  <p class="lead">Establish Sprint Colombo as an accessible, professionally delivered local multisport event, drive qualified registrations for race day on 31 January 2027, and build community momentum before, during and after the race.</p>
+  <div class="chips"><span>Sunday 31 January 2027</span><span>6:00 AM start</span><span>Aquathon · Aquabike · Duathlon · Triathlon</span><span>Goal: 1,000 registrations</span></div>
+  <div class="ticker" aria-hidden="true"><div>
+    Swim. Bike. Run.<i>◆</i>Register. Train. Show up.<i>◆</i>#SprintColomboChallenge<i>◆</i>Find your Sprint<i>◆</i>Your next challenge starts here<i>◆</i>
+    Swim. Bike. Run.<i>◆</i>Register. Train. Show up.<i>◆</i>#SprintColomboChallenge<i>◆</i>Find your Sprint<i>◆</i>Your next challenge starts here<i>◆</i>
+  </div></div>
+</div></section>
+
+<section class="slide" data-title="Event at a glance"><div class="inner">
+  <p class="sec">01 — The event at a glance</p>
+  <h2>Sprint Colombo 2027.</h2>
+  <div class="facts">
+    <div><small>Race date</small><b>Sunday 31 January 2027</b></div>
+    <div><small>Start time</small><b>6:00 AM</b></div>
+    <div><small>Venue</small><b>Port City Colombo or Galle Face</b><span class="tbc">To confirm</span></div>
+    <div><small>Organiser</small><b>Serendib Multisport</b></div>
+    <div><small>Race management</small><b>Professional timing</b></div>
+    <div><small>Awards</small><b>A medal for every finisher</b><span>Top three in each category receive awards</span></div>
+    <div><small>On the day</small><b>Food, kids' activities, awards</b><span>A spectator-friendly event for families</span></div>
+    <div><small>Registration launch</small><b>Mid-October planned</b><span class="tbc">To confirm</span></div>
+  </div>
+  <p class="note">A professionally managed, spectator-friendly multisport event, and an accessible stepping stone toward IRONMAN 70.3 Colombo.</p>
+</div></section>
+
+<section class="slide" data-title="Positioning"><div class="inner">
+  <p class="sec">02 — Strategic positioning</p>
+  <h2>IRONMAN is the international stage. Sprint Colombo is Colombo's challenge.</h2>
+  <div class="grid g3">
+    <div class="rule"><h3>Accessible challenge</h3><p class="muted">Energetic and open to everyone, from experienced endurance athletes to people entering multisport for the first time.</p></div>
+    <div class="rule sun"><h3>Backed by Serendib</h3><p class="muted">Serendib Multisport's event credibility builds trust and connects Sprint Colombo to the wider endurance community.</p></div>
+    <div class="rule sea"><h3>Local and achievable</h3><p class="muted">Local, energetic, social and achievable, with the quality and excitement of a major sporting event.</p></div>
+  </div>
+</div></section>
+
+<section class="slide" data-title="Registration goal"><div class="inner">
+  <p class="sec">03 — Campaign goal</p>
+  <div class="target">
+    <div><div class="big">800<span style="color:var(--ink)">–</span>1,000</div></div>
+    <div><h2 style="margin-bottom:12px;max-width:18ch">completed registrations by race day.</h2>
+    <p class="muted">800 is our base target and 1,000 our stretch. Both count deduplicated entries from our paid and organic social media, creators, ambassadors and tracked community partners.</p></div>
+  </div>
+  <p class="muted" style="margin-top:24px;margin-bottom:0">Cumulative checkpoints (base – stretch)</p>
+  <div class="steps4" aria-label="Checkpoints: 80 to 100 by end of October, 260 to 325 by end of November, 480 to 600 by end of December, 800 to 1,000 by race day">
+    <div class="bar" style="height:22%"><b>80–100</b><small>End Oct</small></div>
+    <div class="bar" style="height:42%"><b>260–325</b><small>End Nov</small></div>
+    <div class="bar" style="height:66%"><b>480–600</b><small>End Dec</small></div>
+    <div class="bar" style="height:100%;background:var(--red);border-color:var(--red);color:#fff"><b>800–1,000</b><small style="color:#fff">31 Jan</small></div>
+  </div>
+  <p class="note">There is no historical data on social-media-attributed registrations for Sprint Colombo, so these are planning targets, not a forecast or guarantee. With USD 100 a month in paid media, ads alone won't deliver them: most entries come from partners, creators and organic reach. We'll reassess after the first two to three weeks and rephase checkpoints once the registration date is confirmed.</p>
+</div></section>
+
+<section class="slide" data-title="Race formats"><div class="inner">
+  <p class="sec">04 — Race formats · Find Your Sprint</p>
+  <h2>Four formats. Four clear stories.</h2>
+  <div class="formats"><div class="f"><h3>Aquathon</h3><div class="legs3" aria-hidden="true"><i class="sw" style="flex:1800"></i><i class="rn" style="flex:5000"></i></div><div class="dist">Swim 600 m + Run 5 km</div><div class="concept">“Swim. Run. Finish strong.”</div><p class="muted" style="margin:0;font-size:15px">Format explainer and beginner FAQ</p></div><div class="f"><h3>Aquabike</h3><div class="legs3" aria-hidden="true"><i class="sw" style="flex:1800"></i><i class="bk" style="flex:20000"></i></div><div class="dist">Swim 600 m + Bike 20 km</div><div class="concept">“Two disciplines. One challenge.”</div><p class="muted" style="margin:0;font-size:15px">Course and equipment explainer</p></div><div class="f"><h3>Duathlon</h3><div class="legs3" aria-hidden="true"><i class="rn" style="flex:2500"></i><i class="bk" style="flex:20000"></i><i class="rn" style="flex:2500"></i></div><div class="dist">Run 2.5 km + Bike 20 km + Run 2.5 km</div><div class="concept">“Run. Ride. Run.”</div><p class="muted" style="margin:0;font-size:15px">Transition tips and training guide</p></div><div class="f"><h3>Triathlon</h3><div class="legs3" aria-hidden="true"><i class="sw" style="flex:1800"></i><i class="bk" style="flex:20000"></i><i class="rn" style="flex:5000"></i></div><div class="dist">Swim 600 m + Bike 20 km + Run 5 km</div><div class="concept">“Three disciplines. Your finish line.”</div><p class="muted" style="margin:0;font-size:15px">Full-race breakdown</p></div></div>
+  <p class="note"><b style="color:var(--ink)">Find Your Sprint series:</b> four format explainers, four short reels and a comparison carousel, each linking to that format's registration page (subject to site set-up). Distances to be checked against the final race rules. Colour bars: <span class="t-sea">swim</span>, <span class="t-sun">bike</span>, <span class="t-red">run</span>.</p>
+</div></section>
+
+<section class="slide" data-title="Audiences"><div class="inner">
+  <p class="sec">05 — Audience segments &amp; messaging</p>
+  <h2>Five audiences. One event.</h2>
+  <div class="grid g3">
+    <div class="box"><h3>Experienced triathletes</h3><p>Professional standards, timing, competition, categories, awards and race preparation.</p></div>
+    <div class="box"><h3>Sports &amp; lifestyle athletes</h3><p>Fitness goals, the social experience, community, creator journeys and an achievable step into multisport.</p></div>
+    <div class="box"><h3>Corporate professionals</h3><p>Workplace wellbeing, participation, networking and group training. Team entries promoted only once confirmed.</p></div>
+    <div class="box"><h3>Beginners</h3><p>Formats, preparation and open-water safety, clear that accessible doesn't mean no training is needed.</p></div>
+    <div class="box"><h3>Families &amp; spectators</h3><p>Atmosphere, food stalls, children's activities and awards, with logistics shared once confirmed.</p></div>
+  </div>
+</div></section>
+
+<section class="slide" data-title="Competitor positioning"><div class="inner">
+  <p class="sec">06 — Local event landscape</p>
+  <h2>Where Sprint Colombo stands out.</h2>
+  <div class="tblwrap"><table class="tbl"><thead><tr><th>Benchmark event</th><th>Known for</th><th>Sprint Colombo's angle</th></tr></thead><tbody><tr><td data-l="Benchmark event">Colombo Marathon</td><td data-l="Known for">Mass-market, civic pride</td><td data-l="Sprint Colombo's angle">Own the multi-format swim, bike and run participation story</td></tr><tr><td data-l="Benchmark event">SPA Ceylon Wellness Run</td><td data-l="Known for">Wellness, lifestyle, social</td><td data-l="Sprint Colombo's angle">A healthy lifestyle combined with a professionally managed sporting challenge</td></tr><tr><td data-l="Benchmark event">CAL Momentum</td><td data-l="Known for">Multisport, social, community</td><td data-l="Sprint Colombo's angle">Clear format choices, strong event delivery and the path toward IRONMAN</td></tr><tr><td data-l="Benchmark event">Nestomalt Run</td><td data-l="Known for">Mass-market, accessible</td><td data-l="Sprint Colombo's angle">Easy-to-understand entry points with a premium event experience</td></tr><tr><td data-l="Benchmark event">ICA International Half-Marathon</td><td data-l="Known for">Competitive, international</td><td data-l="Sprint Colombo's angle">Varied disciplines and an urban, spectator-friendly experience</td></tr></tbody></table></div>
+  <p class="note">Benchmarks from the agency brief. The angles are our proposed positioning, not claims about other events' performance.</p>
+</div></section>
+
+<section class="slide" data-title="Rollout"><div class="inner">
+  <p class="sec">07 — October to February rollout</p>
+  <h2>From launch to finish line.</h2>
+  <div class="phases six" role="tablist" id="phaseList"></div>
+  <div class="phase-body" id="phaseBody" role="tabpanel" aria-live="polite"></div>
+</div></section>
+
+<section class="slide" data-title="Launch playbook"><div class="inner">
+  <p class="sec">08 — Launch playbook · Tease, then open registrations</p>
+  <h2>Make registration day a launch moment.</h2>
+  <div class="board">
+    <div class="frame"><small>Shoes tied · wheels spinning</small><q>COLOMBO. ARE YOU READY?</q></div>
+    <div class="frame"><small>Swim · bike · run cuts</small><q>Swim. Bike. Run.</q></div>
+    <div class="frame"><small>Stopwatch starts</small><q>SPRINT COLOMBO IS COMING.</q></div>
+    <div class="frame last"><small>End card</small><q>Registrations opening [confirmed date]</q></div>
+  </div>
+  <div class="grid g3">
+    <div><h3>Before</h3><p class="muted">Teaser reel, then countdown stories from five days out, and the reveal post: “From the team behind IRONMAN 70.3 Colombo comes your next challenge – Sprint Colombo.”</p><div class="cd" aria-label="Countdown 5 to 1"><span>5</span><span>4</span><span>3</span><span>2</span><span>1</span></div></div>
+    <div><h3>Launch day</h3><p class="muted">Morning: “Registration open” announcement with a direct call to action. Later: a high-energy launch reel showing the event experience.</p></div>
+    <div><h3>After</h3><p class="muted">Creator collaborations with trackable links, plus collab posts with gyms, clubs and sports brands, all carrying one CTA:</p><p style="font-family:var(--display);font-weight:800;font-size:28px;line-height:1;text-transform:uppercase;margin-top:10px">Register. Train. Show up.</p></div>
+  </div>
+</div></section>
+
+<section class="slide" data-title="Brand ambassadors"><div class="inner">
+  <p class="sec">09 — Brand ambassadors</p>
+  <h2>The voices of Sprint Colombo.</h2>
+  <p class="lead" style="margin-bottom:20px">Serendib doesn't have in-house spokespeople, so we propose 2–3 contracted brand ambassadors. They front our explainers and shoots, giving the campaign familiar, trusted faces from launch to the finish line.</p>
+  <div class="amb">
+    <div class="card"><span class="role">Ambassador 1 · Presenter and voice</span><h3>The Host</h3><p class="who muted">A confident presenter or well-known sports personality who carries the big moments.</p><span class="fr">Fronts</span><div class="chips"><span>Hero launch video</span><span>Registration announcements</span><span>Race-week updates</span><span>Race-day hosting &amp; interviews</span><span>Recap film narration</span></div></div>
+    <div class="card"><span class="role">Ambassador 2 · Credibility</span><h3>The Expert</h3><p class="who muted">An experienced triathlete or qualified coach who explains the sport with authority.</p><span class="fr">Fronts</span><div class="chips"><span>Find Your Sprint explainers</span><span>Sprint 101 FAQs</span><span>Training and transition tips</span><span>Open Water 101, with a safety partner</span></div></div>
+    <div class="card"><span class="role">Ambassador 3 · Relatability</span><h3>The Challenger</h3><p class="who muted">A relatable first-timer who trains for and races Sprint Colombo on camera.</p><span class="fr">Fronts</span><div class="chips"><span>Road to Sprint Colombo</span><span>Could You Do It?</span><span>Train With Sprint Colombo</span><span>Why I Signed Up</span></div></div>
+  </div>
+</div></section>
+
+<section class="slide" data-title="Ambassadors and creators"><div class="inner">
+  <p class="sec">10 — Ambassadors and creators</p>
+  <h2>Ambassadors speak for the event. Creators bring their audiences.</h2>
+  <div class="tblwrap"><table class="tbl"><thead><tr><th></th><th>Brand ambassadors</th><th>Creators · #SprintColomboChallenge</th></tr></thead><tbody>
+    <tr><td data-l="">Who</td><td data-l="Brand ambassadors">2–3 contracted faces of the event</td><td data-l="Creators">5–8 creators across different audiences</td></tr>
+    <tr><td data-l="">Voice</td><td data-l="Brand ambassadors">Official, scripted and approved by Serendib</td><td data-l="Creators">Personal, in their own words</td></tr>
+    <tr><td data-l="">Content</td><td data-l="Brand ambassadors">Explainers, announcements, hosting and our monthly shoots</td><td data-l="Creators">Their own challenge journey</td></tr>
+    <tr><td data-l="">Where it runs</td><td data-l="Brand ambassadors">Sprint Colombo and Serendib channels, and paid ads</td><td data-l="Creators">Creator channels and collab posts</td></tr>
+    <tr><td data-l="">Measured by</td><td data-l="Brand ambassadors">Content performance and ad results</td><td data-l="Creators">Tracked links and codes</td></tr>
+  </tbody></table></div>
+  <div class="grid g2" style="margin-top:22px">
+    <div><h3>How it works</h3><ul class="clean"><li>One or two batched shoot days a month, feeding the 10 reels</li><li>We write the scripts, direct the shoots and edit</li><li>Serendib approves ambassadors, scripts and final cuts</li><li>Usage rights for organic and paid use agreed upfront</li></ul></div>
+    <div><h3>What we look for</h3><ul class="clean"><li>Credible in endurance sport or fitness</li><li>Comfortable on camera in English and Sinhala, and Tamil where possible</li><li>A good values fit, with no conflicting sponsor ties</li><li>Available October to January, and on race day</li></ul></div>
+  </div>
+  <p class="note">Ambassador fees are quoted separately once the shortlist is approved.</p>
+</div></section>
+
+<section class="slide" data-title="Influencer challenge"><div class="inner">
+  <p class="sec">11 — Influencer strategy</p>
+  <h2 style="max-width:none">#SprintColombo<wbr>Challenge</h2>
+  <p class="lead">An ongoing challenge storyline, not one-off promo videos: 5–8 creators across different audiences, each with a unique tracking link or code.</p>
+  <div class="journey">
+    <div><small>Video 1</small><b>"I just signed up"</b></div>
+    <div><small>Video 2</small><b>First training session</b></div>
+    <div><small>Video 3</small><b>"Can I actually finish this?"</b></div>
+    <div><small>Video 4</small><b>Progress &amp; a milestone</b></div>
+    <div><small>Video 5</small><b>Final prep &amp; countdown</b></div>
+  </div>
+  <div class="grid g2">
+    <div><h3>Creator mix</h3><div class="chips"><span>Fitness</span><span>Running</span><span>Cycling</span><span>Swimming / triathlon</span><span>Lifestyle</span><span>Mainstream personality</span><span>Beginner fitness</span></div></div>
+    <div><h3>Shortlist for evaluation</h3>
+      <div class="creators">
+        <a href="https://www.instagram.com/sandali.k" target="_blank" rel="noopener">@sandali.k</a>
+        <a href="https://www.instagram.com/radeeshaa" target="_blank" rel="noopener">@radeeshaa</a>
+        <a href="https://www.instagram.com/manik_amirthanayagam" target="_blank" rel="noopener">@manik_amirthanayagam</a>
+        <a href="https://www.instagram.com/dumma.kfit" target="_blank" rel="noopener">@dumma.kfit</a>
+        <a href="https://www.instagram.com/lithmii" target="_blank" rel="noopener">@lithmii</a>
+        <a href="https://www.instagram.com/shini_ant" target="_blank" rel="noopener">@shini_ant</a>
+        <a href="https://www.instagram.com/catsmartpt" target="_blank" rel="noopener">@catsmartpt</a>
+      </div>
+      <p class="muted" style="margin-top:12px;font-size:14px">Fit, follower counts and fees still to be assessed. Creator fees are negotiated separately and subject to Serendib's approval.</p></div>
+  </div>
+</div></section>
+
+<section class="slide" data-title="Content pillars"><div class="inner">
+  <p class="sec">12 — Content pillars</p>
+  <h2>Seven pillars. Every post has a job.</h2>
+  <div class="grid g4">
+    <div class="box"><h3>Hype</h3><p>Cinematic trailers, countdowns, fast training edits and launch content.</p><span class="tag t-red">Awareness</span></div>
+    <div class="box"><h3>People</h3><p>Creator, athlete and beginner journeys, participant features.</p><span class="tag t-sun">Emotion</span></div>
+    <div class="box"><h3>Challenge</h3><p>#SprintColomboChallenge, training milestones, personal progress.</p><span class="tag t-sun">Participation</span></div>
+    <div class="box"><h3>Education</h3><p>How Sprint works, preparation, equipment, training basics and FAQs.</p><span class="tag t-sea">Confidence</span></div>
+    <div class="box"><h3>Community</h3><p>Clubs, gyms, training groups and friends competing together.</p><span class="tag t-sea">Belonging</span></div>
+    <div class="box"><h3>FOMO</h3><p>Registration milestones, countdowns, participant numbers, "Who's in?"</p><span class="tag t-red">Urgency</span></div>
+    <div class="box"><h3>Serendib credibility</h3><p>Event expertise, behind the scenes, the link to major endurance events.</p><span class="tag t-red">Trust</span></div>
+  </div>
+</div></section>
+
+<section class="slide" data-title="Content series"><div class="inner">
+  <p class="sec">13 — Content series</p>
+  <h2>Ten series that keep the feed moving.</h2>
+  <p class="muted" style="margin-bottom:18px">Select a series to see what it is and when it runs.</p>
+  <div class="own">
+    <div class="list" role="tablist" id="ownList"></div>
+    <div class="detail" id="ownDetail" role="tabpanel" aria-live="polite"></div>
+  </div>
+</div></section>
+
+<section class="slide" data-title="Channel plan"><div class="inner">
+  <p class="sec">14 — Channel plan &amp; publishing cadence</p>
+  <h2>Each channel has a job.</h2>
+  <div class="tblwrap"><table class="tbl"><thead><tr><th>Channel</th><th>Role</th><th>Suggested cadence</th></tr></thead><tbody><tr><td data-l="Channel">Instagram</td><td data-l="Role">Hero reels, creator collaborations, stories, race-format explainers</td><td data-l="Suggested cadence">3–4 feed posts a week; stories on active campaign days</td></tr><tr><td data-l="Channel">Facebook</td><td data-l="Role">Community reach, event information, FAQs and conversion posts</td><td data-l="Suggested cadence">3 posts a week; event updates as needed</td></tr><tr><td data-l="Channel">TikTok</td><td data-l="Role">Creator challenge journeys, relatable training and quick explainers</td><td data-l="Suggested cadence">2–3 short videos a week</td></tr><tr><td data-l="Channel">LinkedIn</td><td data-l="Role">Corporate audiences, organiser credibility and partner stories</td><td data-l="Suggested cadence">1–2 posts a week</td></tr><tr><td data-l="Channel">Serendib &amp; IRONMAN channels</td><td data-l="Role">Cross-event credibility and approved direct-CTA posts</td><td data-l="Suggested cadence">Coordinated with, and approved by, the channel owners</td></tr></tbody></table></div>
+  <p class="note">Each month's 10 reels and 5 static designs are adapted for every channel from the same masters. Any post on global IRONMAN channels needs channel-owner approval and brand compliance.</p>
+</div></section>
+
+<section class="slide" data-title="Sample monthly calendar"><div class="inner">
+  <p class="sec">15 — Sample monthly calendar</p>
+  <h2 style="max-width:none;margin-bottom:10px">A month on the feed.</h2>
+  <p class="muted" style="margin-bottom:12px;max-width:90ch">Sample month: November 2026, with 3–5 story sequences each active week on top. Each real calendar lists asset, format, objective, audience, CTA, date, channel, owner, review deadline and approval status, and goes to Serendib for approval ahead of the month.</p>
+  <div class="cal-key"><span class="k reel"><b>10</b> Reels</span><span class="k static"><b>5</b> Static posts</span><span class="muted">+ stories</span></div>
+  <div class="cal" role="list" aria-label="November 2026 sample content calendar"><div class="dow">Sun</div><div class="dow">Mon</div><div class="dow">Tue</div><div class="dow">Wed</div><div class="dow">Thu</div><div class="dow">Fri</div><div class="dow">Sat</div><div class="day empty"><span class="n">1</span></div><div class="day"><span class="n"><span class="wd">Mon </span>2</span><div class="it reel"><b>Reel</b>Road to Sprint Colombo<small>Episode 1</small></div></div><div class="day empty"><span class="n">3</span></div><div class="day"><span class="n"><span class="wd">Wed </span>4</span><div class="it static"><b>Static post</b>Find Your Sprint<small>Four formats compared (carousel)</small></div></div><div class="day empty"><span class="n">5</span></div><div class="day"><span class="n"><span class="wd">Fri </span>6</span><div class="it reel"><b>Reel</b>#SprintColombo<wbr>Challenge<small>Creator: “Can I actually finish this?”</small></div></div><div class="day empty"><span class="n">7</span></div><div class="day"><span class="n"><span class="wd">Sun </span>8</span><div class="it reel"><b>Reel</b>Could You Do It?<small>The swim</small></div></div><div class="day empty"><span class="n">9</span></div><div class="day"><span class="n"><span class="wd">Tue </span>10</span><div class="it static"><b>Static post</b>Open Water 101<small>Safety explainer with a swim partner</small></div></div><div class="day empty"><span class="n">11</span></div><div class="day"><span class="n"><span class="wd">Thu </span>12</span><div class="it reel"><b>Reel</b>Road to Sprint Colombo<small>Episode 2</small></div></div><div class="day empty"><span class="n">13</span></div><div class="day"><span class="n"><span class="wd">Sat </span>14</span><div class="it reel"><b>Reel</b>Train With Sprint Colombo<small>Activation weekend highlights</small></div></div><div class="day empty"><span class="n">15</span></div><div class="day"><span class="n"><span class="wd">Mon </span>16</span><div class="it static"><b>Static post</b>Registration milestone<small>“Who's in?” FOMO post</small></div></div><div class="day empty"><span class="n">17</span></div><div class="day"><span class="n"><span class="wd">Wed </span>18</span><div class="it reel"><b>Reel</b>Could You Do It?<small>The bike, POV footage</small></div></div><div class="day empty"><span class="n">19</span></div><div class="day"><span class="n"><span class="wd">Fri </span>20</span><div class="it reel"><b>Reel</b>Behind the Event<small>Serendib team preparing</small></div></div><div class="day empty"><span class="n">21</span></div><div class="day"><span class="n"><span class="wd">Sun </span>22</span><div class="it static"><b>Static post</b>Why I Signed Up<small>Participant quote card</small></div></div><div class="day empty"><span class="n">23</span></div><div class="day"><span class="n"><span class="wd">Tue </span>24</span><div class="it reel"><b>Reel</b>Road to Sprint Colombo<small>Episode 3</small></div></div><div class="day empty"><span class="n">25</span></div><div class="day"><span class="n"><span class="wd">Thu </span>26</span><div class="it reel"><b>Reel</b>Could You Do It?<small>The run</small></div></div><div class="day empty"><span class="n">27</span></div><div class="day"><span class="n"><span class="wd">Sat </span>28</span><div class="it static"><b>Static post</b>Meet the Athlete<small>Beginner profile</small></div></div><div class="day empty"><span class="n">29</span></div><div class="day"><span class="n"><span class="wd">Mon </span>30</span><div class="it reel"><b>Reel</b>Why I Signed Up<small>Participant montage</small></div></div><div class="day out" aria-hidden="true"></div><div class="day out" aria-hidden="true"></div><div class="day out" aria-hidden="true"></div><div class="day out" aria-hidden="true"></div><div class="day out" aria-hidden="true"></div></div>
+</div></section>
+
+<section class="slide" data-title="Community & partners"><div class="inner">
+  <p class="sec">16 — Community activation &amp; partners</p>
+  <h2>Train With Sprint Colombo.</h2>
+  <div class="grid g2">
+    <div>
+      <p class="lead">One weekend training activation with creators, registered athletes and local fitness communities.</p>
+      <div class="box" style="margin-top:22px;border-color:var(--sea)">
+        <h3 class="t-sea">One session, a week of content</h3>
+        <p>Filmed professionally so a single activation gives us:</p>
+        <div class="chips"><span>Reels</span><span>Stories</span><span>Interviews</span><span>Photographs</span><span>Participant testimonials</span></div>
+        <p style="margin-top:12px;font-size:14px">Venue, permissions and running costs by agreement.</p>
+      </div>
+    </div>
+    <div>
+      <h3>Partner outreach</h3>
+      <ul class="clean"><li>Swimming clubs</li><li>Cycling groups</li><li>Running clubs</li><li>Gyms</li><li>Universities</li><li>Wellness communities</li><li>Corporate HR teams</li></ul>
+      <p class="muted" style="margin-top:14px">Co-branded content, club challenges, training sessions and referral links. Sponsor and partner commitments need Serendib's sign-off.</p>
+    </div>
+  </div>
+</div></section>
+
+<section class="slide" data-title="Open water safety"><div class="inner">
+  <p class="sec">17 — Open-water safety &amp; beginner education</p>
+  <h2>Accessible, never careless.</h2>
+  <div class="grid g2">
+    <div class="box" style="border-color:var(--sea)"><h3 class="t-sea">Open Water 101</h3><p>A series made with qualified swimming and safety partners, covering realistic preparation, equipment, supervised practice and following official safety instructions.</p></div>
+    <div><ul class="clean"><li>Expert-led content only</li><li>Never suggest any distance is safe without the right ability and preparation</li><li>Final safety, course and eligibility details published only after Serendib confirms them</li></ul></div>
+  </div>
+</div></section>
+
+<section class="slide" data-title="Paid media"><div class="inner">
+  <p class="sec">18 — Paid media &amp; conversion</p>
+  <h2>USD 100 a month, spent where it converts.</h2>
+  <div class="split" role="img" aria-label="Monthly media split: awareness 30, consideration 20, conversion 40, retargeting 10 USD">
+    <div style="flex:30;background:var(--sea)">Awareness $30</div>
+    <div style="flex:20;background:#9FD3FF">Consideration $20</div>
+    <div style="flex:40;background:var(--red);color:#fff">Conversion $40</div>
+    <div style="flex:10;background:var(--sun)">Retarget $10</div>
+  </div>
+  <div class="grid g4" style="margin-top:18px">
+    <div class="rule sea"><h3>Awareness</h3><p class="muted">Hero video and short reels to local fitness, lifestyle, running, cycling and swimming audiences.</p></div>
+    <div class="rule sea"><h3>Consideration</h3><p class="muted">Format explainers and FAQs driving to a landing page with distances, date, venue status, safety, pricing and FAQs.</p></div>
+    <div class="rule"><h3>Conversion</h3><p class="muted">Registration ads with clear CTAs and format-specific creatives.</p></div>
+    <div class="rule sun"><h3>Retargeting</h3><p class="muted">Engaged viewers and landing-page visitors, where audience size and consent allow.</p></div>
+  </div>
+  <p class="note">Indicative split, reallocated weekly toward what actually drives registrations, not reach alone. Media is paid directly to the platforms, about USD 400 across October to January. Tracking needs Meta Pixel / Conversions API, GA4, tagged links, a registration-complete event or organiser data, and ad-account access.</p>
+</div></section>
+
+<section class="slide" data-title="Registration journey"><div class="inner">
+  <p class="sec">19 — Registration journey</p>
+  <h2>From scroll to start line.</h2>
+  <div class="flow">
+    <div><b>See</b>Awareness content</div>
+    <div><b>Learn</b>Event landing page</div>
+    <div><b>Choose</b>Aquathon, Aquabike, Duathlon or Triathlon</div>
+    <div><b>Check</b>Eligibility, route status, price, safety</div>
+    <div><b>Register</b>Sign up and pay</div>
+    <div><b>Confirmed</b>Organiser confirmation</div>
+  </div>
+  <div class="grid g3">
+    <div class="box"><h3>A CTA per format</h3><p>A separate link or landing-page section for each format, with distances approved against the race rules.</p></div>
+    <div class="box"><h3>Everything they need</h3><p>Date, 6:00 AM start, venue status, fees, eligibility, equipment, awards, timing and a short FAQ. Nothing unconfirmed published as final.</p></div>
+    <div class="box"><h3>Creative per audience</h3><p>Versions for beginners, experienced triathletes, fitness communities and corporate teams.</p></div>
+  </div>
+  <p class="note">Serendib owns payment, registration processing and participant support unless separately contracted.</p>
+</div></section>
+
+<section class="slide" data-title="Race week"><div class="inner">
+  <p class="sec">20 — Race week &amp; rapid-turnaround coverage</p>
+  <h2>Live on the day. Ready by the evening.</h2>
+  <div class="journey">
+    <div><small>Before</small><b>Prep</b><p style="margin:8px 0 0;font-size:15px">Shot list, filming permissions, crew access, route and approvals.</p></div>
+    <div><small>Race morning</small><b>Arrivals</b><p style="margin:8px 0 0;font-size:15px">Set-up, warm-ups, safety briefing, start-line atmosphere, spectators.</p></div>
+    <div><small>Racing</small><b>Action</b><p style="margin:8px 0 0;font-size:15px">Each discipline, transitions, volunteers and partners, without ever interfering with the race.</p></div>
+    <div><small>Finish</small><b>Medals &amp; awards</b><p style="margin:8px 0 0;font-size:15px">Finisher reactions, category winners, the awards presentation.</p></div>
+    <div><small>Same day</small><b>Delivered</b><p style="margin:8px 0 0;font-size:15px">Live stories, a race-day reel and selected approved photos.</p></div>
+  </div>
+  <div class="grid g2">
+    <div class="box"><h3>After the event</h3><p>Highlight film, winners recap, community story, sponsor assets and a performance report.</p></div>
+    <div class="box"><h3>Race-day team</h3><p>A named capture lead, editor, publisher and Serendib approver, with agreed safe filming positions and deadlines. We never obstruct athletes, marshals or emergency access.</p></div>
+  </div>
+</div></section>
+
+<section class="slide" data-title="Deliverables"><div class="inner">
+  <p class="sec">21 — Deliverables</p>
+  <h2>What we produce.</h2>
+  <div class="tblwrap"><table class="tbl"><thead><tr><th>Deliverable</th><th>Scope</th><th>Notes</th></tr></thead><tbody><tr><td data-l="Deliverable">Hero launch video</td><td data-l="Scope">1 master + 2 vertical cut-downs, fronted by the Host</td><td data-l="Notes">Depends on available footage and the approved concept</td></tr><tr><td data-l="Deliverable">Reels</td><td data-l="Scope"><b>10 a month</b></td><td data-l="Notes">Adapted across approved channels</td></tr><tr><td data-l="Deliverable">Static posts and carousels</td><td data-l="Scope"><b>5 a month</b></td><td data-l="Notes">Race formats, FAQs, registration and countdown assets</td></tr><tr><td data-l="Deliverable">Stories</td><td data-l="Scope">3–5 sequences each active week</td><td data-l="Notes">More during launch and race week</td></tr><tr><td data-l="Deliverable">Brand ambassadors</td><td data-l="Scope">2–3 ambassadors, 1–2 batched shoot days a month</td><td data-l="Notes">Fees and usage rights quoted separately</td></tr><tr><td data-l="Deliverable">Creator content</td><td data-l="Scope">5–8 partnerships</td><td data-l="Notes">Creator fees and deliverables agreed separately</td></tr><tr><td data-l="Deliverable">Community activation</td><td data-l="Scope">1 Train With Sprint Colombo event</td><td data-l="Notes">Venue, permissions and running costs by agreement</td></tr><tr><td data-l="Deliverable">Race-day coverage</td><td data-l="Scope">Live stories, 1 same-day reel, curated photos</td><td data-l="Notes">Quoted separately unless agreed in writing</td></tr><tr><td data-l="Deliverable">Post-event</td><td data-l="Scope">Highlight film, photo album, winners and sponsor recaps</td><td data-l="Notes">Delivery windows to be agreed</td></tr></tbody></table></div>
+</div></section>
+
+<section class="slide" data-title="How we work"><div class="inner">
+  <p class="sec">22 — How we work together</p>
+  <h2>Clear roles. Fast approvals.</h2>
+  <div class="tblwrap"><table class="tbl"><thead><tr><th>Workstream</th><th>DigiMe Ads</th><th>Serendib provides</th></tr></thead><tbody><tr><td data-l="Workstream">Planning</td><td data-l="DigiMe Ads">Creative concept, monthly calendar, channel strategy</td><td data-l="Serendib provides">Approval of key messages and dates</td></tr><tr><td data-l="Workstream">Production</td><td data-l="DigiMe Ads">Design, editing, social assets, agreed shoot coverage</td><td data-l="Serendib provides">Access, permits, participant releases, approved facts</td></tr><tr><td data-l="Workstream">Publishing</td><td data-l="DigiMe Ads">Scheduling and posting approved content</td><td data-l="Serendib provides">Account access and timely approvals</td></tr><tr><td data-l="Workstream">Paid media</td><td data-l="DigiMe Ads">Set-up, monitoring, optimisation and reporting</td><td data-l="Serendib provides">Approved budget, ad account access, registration data</td></tr><tr><td data-l="Workstream">Brand ambassadors</td><td data-l="DigiMe Ads">Shortlist, scripts, shoot direction and editing</td><td data-l="Serendib provides">Approval of ambassadors, fees, scripts and final cuts</td></tr><tr><td data-l="Workstream">Creators &amp; partners</td><td data-l="DigiMe Ads">Shortlist, briefs, coordination and tracking</td><td data-l="Serendib provides">Approval of creators, fees and usage rights</td></tr><tr><td data-l="Workstream">Community management</td><td data-l="DigiMe Ads">Moderation and FAQ routing in business hours</td><td data-l="Serendib provides">Approved FAQ, response owner, escalation contacts</td></tr><tr><td data-l="Workstream">Race day</td><td data-l="DigiMe Ads">Agreed capture and rapid-turnaround workflow</td><td data-l="Serendib provides">Accreditation, course access, safety coordination</td></tr><tr><td data-l="Workstream">Reporting</td><td data-l="DigiMe Ads">Weekly snapshot, monthly review, post-event wrap</td><td data-l="Serendib provides">Registration data and analytics access</td></tr></tbody></table></div>
+  <div class="flow">
+    <div><b>Submit</b>We share the concept or asset</div>
+    <div><b>Review</b>Serendib reviews within agreed working days</div>
+    <div><b>Revise</b>Up to the agreed revision rounds</div>
+    <div><b>Approve</b>Written sign-off from the authorised contact</div>
+    <div><b>Publish</b>Live on the channels</div>
+  </div>
+  <p class="note">Race day needs a named Serendib contact for fast approvals and an escalation channel.</p>
+</div></section>
+
+<section class="slide" data-title="Registration plan"><div class="inner">
+  <p class="sec">23 — The registration plan</p>
+  <h2>Where 800–1,000 registrations come from.</h2>
+  <div class="split" role="img" aria-label="Share of registrations: partners 35%, creators and ambassadors 25%, organic 20%, paid 10%, referrals 10%">
+    <div style="flex:35;background:var(--red);color:#fff">Partners 35%</div>
+    <div style="flex:25;background:var(--sun)">Creators 25%</div>
+    <div style="flex:20;background:var(--sea)">Organic 20%</div>
+    <div style="flex:10;background:#9FD3FF">Paid 10%</div>
+    <div style="flex:10;background:#C9CDD8">Referral 10%</div>
+  </div>
+  <div class="tblwrap"><table class="tbl"><thead><tr><th>Source</th><th>Base</th><th>Stretch</th><th>How we get there</th></tr></thead><tbody><tr><td data-l="Source">Community &amp; club partners</td><td data-l="Base">280</td><td data-l="Stretch">350</td><td data-l="How we get there">15–20 clubs, gyms, universities and corporate HR teams, around 18 entries each through partner codes</td></tr><tr><td data-l="Source">Creators &amp; ambassadors</td><td data-l="Base">200</td><td data-l="Stretch">250</td><td data-l="How we get there">6–8 creators at 30–35 entries each through unique codes, backed by ambassador content</td></tr><tr><td data-l="Source">Organic social</td><td data-l="Base">160</td><td data-l="Stretch">200</td><td data-l="How we get there">Link in bio, Find Your Sprint posts, countdowns and FOMO content</td></tr><tr><td data-l="Source">Paid media</td><td data-l="Base">80</td><td data-l="Stretch">100</td><td data-l="How we get there">USD 400 in total at USD 4–5 per registration</td></tr><tr><td data-l="Source">Referrals &amp; group entries</td><td data-l="Base">80</td><td data-l="Stretch">100</td><td data-l="How we get there">Share links and friends or teams signing up together</td></tr><tr class="tot"><td data-l="Source">Total</td><td data-l="Base"><b>800</b></td><td data-l="Stretch"><b>1,000</b></td><td data-l="How we get there"></td></tr></tbody></table></div>
+  <p class="note">Partners and creators carry 60% of the target, which is why both are set up in October. Source shares are planning assumptions we'll check against real data every week.</p>
+</div></section>
+
+<section class="slide" data-title="Measuring success"><div class="inner">
+  <p class="sec">24 — KPIs &amp; reporting</p>
+  <h2>The numbers behind the target.</h2>
+  <div class="tblwrap"><table class="tbl"><thead><tr><th>Metric</th><th>Base · 800</th><th>Stretch · 1,000</th><th>How it's measured</th></tr></thead><tbody><tr><td data-l="Metric">Completed registrations</td><td data-l="Base · 800"><b>800</b></td><td data-l="Stretch · 1,000"><b>1,000</b></td><td data-l="How it's measured">Deduplicated entries via tagged links and codes</td></tr><tr><td data-l="Metric">Unique reach</td><td data-l="Base · 800">400,000</td><td data-l="Stretch · 1,000">500,000</td><td data-l="How it's measured">Platform insights, all channels combined</td></tr><tr><td data-l="Metric">Video views</td><td data-l="Base · 800">600,000</td><td data-l="Stretch · 1,000">750,000</td><td data-l="How it's measured">3-second views across all platforms</td></tr><tr><td data-l="Metric">Landing-page sessions</td><td data-l="Base · 800">18,000</td><td data-l="Stretch · 1,000">22,000</td><td data-l="How it's measured">GA4, tagged by source and campaign</td></tr><tr><td data-l="Metric">Landing-page conversion</td><td data-l="Base · 800">4.5%</td><td data-l="Stretch · 1,000">4.5%</td><td data-l="How it's measured">Completed registrations ÷ sessions</td></tr><tr><td data-l="Metric">Cost per paid registration</td><td data-l="Base · 800">≤ USD 5</td><td data-l="Stretch · 1,000">≤ USD 4</td><td data-l="How it's measured">Paid media spend ÷ paid registrations</td></tr><tr><td data-l="Metric">Reel engagement rate</td><td data-l="Base · 800">4%</td><td data-l="Stretch · 1,000">6%</td><td data-l="How it's measured">Likes, comments, shares and saves ÷ reach</td></tr><tr><td data-l="Metric">#SprintColomboChallenge posts</td><td data-l="Base · 800">150</td><td data-l="Stretch · 1,000">250</td><td data-l="How it's measured">Tagged and hashtagged posts</td></tr><tr><td data-l="Metric">Train With Sprint Colombo turnout</td><td data-l="Base · 800">80</td><td data-l="Stretch · 1,000">120</td><td data-l="How it's measured">Sign-ins on the day</td></tr><tr><td data-l="Metric">New followers</td><td data-l="Base · 800">2,000</td><td data-l="Stretch · 1,000">3,000</td><td data-l="How it's measured">Net growth across Sprint Colombo channels</td></tr></tbody></table></div>
+  <p class="note">The funnel: 400,000+ people reached → 18,000+ landing-page visits → 4.5% register → 800+ entries. Reporting: a weekly snapshot while registrations are open, a monthly review, daily race-week highlights, and a final post-event report. Paid, organic, creator and partner registrations are reported separately, and these targets are reviewed with Serendib after the first two to three weeks.</p>
+</div></section>
+
+<section class="slide" data-title="Investment"><div class="inner">
+  <p class="sec">25 — Investment</p>
+  <h2>Simple, monthly, transparent.</h2>
+  <div class="money">
+    <div class="box" style="border-color:var(--red)"><small class="muted">Monthly agency retainer</small><b class="v">LKR 125,000</b><p>Strategy, calendar, 10 reels and 5 static designs a month, channel adaptations, publishing, community management and ad management. Taxes, if any, to be confirmed.</p></div>
+    <div class="box"><small class="muted">Monthly media budget</small><b class="v">USD 100</b><p>Paid directly to the ad platforms, or reimbursed at the prevailing rate. About USD 400 across October to January.</p></div>
+    <div class="box"><small class="muted">Campaign period</small><b class="v">Oct – Jan</b><p>Immediate launch after approval, through race day on 31 January 2027. February recap and reporting per agreed scope.</p></div>
+  </div>
+  <div class="grid g2" style="margin-top:22px">
+    <div><h3>Quoted separately</h3><div class="chips"><span>Extra shoots</span><span>Ambassador fees</span><span>Creator fees</span><span>Venue costs</span><span>Travel</span><span>Race-day crew</span><span>Out-of-scope edits</span></div></div>
+    <div><h3>Scope</h3><p class="muted">This proposal covers Sprint Colombo 2027 only. IRONMAN 70.3 Colombo race week, IRONKIDS, the IRONMAN expo and international athlete campaigns sit in a separate proposal unless added in writing. Partial October billing and content quantities to be agreed in writing.</p></div>
+  </div>
+</div></section>
+
+<section class="slide" data-title="To confirm"><div class="inner">
+  <p class="sec">26 — To confirm with Serendib</p>
+  <h2>What we need to go live.</h2>
+  <ul class="check">
+    <li>Registration opening date, live link, fees and closing date</li>
+    <li>Venue, route maps, race rules, eligibility and entry caps</li>
+    <li>Approval of the proposal and monthly retainer</li>
+    <li>Sponsor and partner rights, approved logos and brand guidelines</li>
+    <li>Named approver, account permissions and review turnaround</li>
+    <li>Client-approved ambassador list and usage rights</li>
+    <li>Race-day access, crew, safety and deliverable deadlines</li>
+  </ul>
+</div></section>
+
+<section class="slide" data-title="Next steps"><div class="inner">
+  <p class="sec">27 — Next steps</p>
+  <h2>Race day is 16 weeks away.</h2>
+  <p class="lead" style="margin-bottom:6px">We launch as soon as we have written approval, account access, brand assets and a working registration link. If registrations aren't open yet, awareness starts straight away and switches to conversion once they are.</p>
+  <div class="journey">
+    <div><small>Step 1</small><b>Approve</b><p style="margin:8px 0 0;font-size:15px">Sign off the proposal, fees and the launch approver.</p></div>
+    <div><small>Step 2</small><b>Access</b><p style="margin:8px 0 0;font-size:15px">Social and ad accounts, brand assets and the live registration link.</p></div>
+    <div><small>Step 3</small><b>Line up</b><p style="margin:8px 0 0;font-size:15px">Confirm ambassadors, creators and partners, and set up tracking links.</p></div>
+    <div><small>Step 4</small><b>Go live</b><p style="margin:8px 0 0;font-size:15px">Hero teaser, countdown and the first month's calendar.</p></div>
+  </div>
+</div></section>
+
+<section class="slide" data-title="Close"><div class="inner close cover">
+  <p class="sec">28 — Overall direction</p>
+  <h1>Your next challenge starts here.</h1>
+  <p class="lead" style="margin-top:22px">The launch builds awareness and drives registrations. November onward turns Sprint Colombo into a visible community movement through training journeys, athlete stories, creators, education and FOMO. The aim: a local event people want to be part of, not just another race being advertised.</p>
+  <p class="big-quote">Sprint Colombo – Colombo's challenge.</p>
+  <div class="credits">
+    <div><span class="muted">Prepared for</span><br>Serendib Multisport (Pvt) Ltd</div>
+    <div><span class="muted">Presented by</span><br><a href="https://digimeads.com/" target="_blank" rel="noopener">DigiMe Ads (Pvt) Ltd</a></div>
+  </div>
+</div></section>
+
+</main>
+
+
+
+<footer>
+  <div class="course" aria-hidden="true">
+    <div class="legs"><span class="s"></span><span class="b"></span><span class="r"></span></div>
+    <div class="fill" id="fill"></div>
+    <div class="labels"><span>Swim</span><span>Bike</span><span>Run · Finish</span></div>
+  </div>
+  <div class="nav">
+    <button id="prev" aria-label="Previous slide">‹</button>
+    <span class="count" aria-live="polite"><b id="cur">01</b> / <span id="tot">16</span></span>
+    <button id="next" aria-label="Next slide">›</button>
+  </div>
+</footer>
+</div>
+
+<script>
+(function(){
+  // sponsor ownership
+  var owns=[
+    ["Find Your Sprint","Presented by our Expert ambassador: four format explainers, four short reels and a comparison carousel, each linking to that format's registration page.","October onward"],
+    ["Road to Sprint Colombo","Our Challenger ambassador and real participants, in short reels from registration through training.","November – January"],
+    ["Could You Do It?","Breaks down the swim, bike and run, and challenges viewers to picture themselves taking part.","November – December"],
+    ["Meet the Athlete","Quick profiles of beginners, experienced athletes and community members.","November – January"],
+    ["Train With Sprint Colombo","Community training sessions with creators and registered participants.","November – December"],
+    ["Sprint 101","Our Expert ambassador answers common first-timer questions.","Throughout"],
+    ["Open Water 101","Safety-first swim preparation, made with qualified swimming and safety partners.","November – January"],
+    ["Behind the Event","Serendib Multisport's team preparing, planning and building up the event.","Throughout"],
+    ["Why I Signed Up","Testimonials from participants and creators.","November – January"],
+    ["Countdown Content","Registration and event milestones designed to create urgency.","Throughout"]
+  ];
+  var ol=document.getElementById('ownList'), od=document.getElementById('ownDetail');
+  function pickOwn(i){
+    Array.prototype.forEach.call(ol.children,function(b,j){b.setAttribute('aria-selected',j===i)});
+    var o=owns[i];od.innerHTML='<p class="muted" style="margin-bottom:8px">Series '+(i+1)+' of '+owns.length+'</p><div class="what">'+o[0]+'</div><p style="margin-top:16px">'+o[1]+'</p><p class="muted" style="margin-top:14px">Runs: '+o[2]+'</p>';
+  }
+  owns.forEach(function(o,i){var b=document.createElement('button');b.setAttribute('role','tab');b.innerHTML=o[0]+'<span>›</span>';b.onclick=function(){pickOwn(i);if(window.__fitCur)window.__fitCur()};ol.appendChild(b)});
+  pickOwn(0);
+
+  // rollout phases
+  var ph=[
+    ["October 2026","Launch",["Confirm registration opening","Teaser, countdown and reveal","Hero launch video","Explain the four formats","First creators go live","Awareness and conversion ads start"]],
+    ["November 2026","Build community",["Road to Sprint Colombo","Creator training diaries","Community workouts","Open-water safety explainers","Format spotlights"]],
+    ["December 2026","Deepen intent",["Training stories","Corporate outreach","Partner collaborations","Registration retargeting","Race-day experience teasers"]],
+    ["1–24 January 2027","Final preparation",["Countdown","Registration urgency if still open","Participant checklists and FAQs","Safety updates","Venue and logistics updates once approved"]],
+    ["25–31 January 2027","Race week & race day",["Athlete arrivals","Behind the scenes","Live stories","Start and finish moments","Results and awards","Same-day highlights"]],
+    ["February 2027","Post-event",["Recap film","Photo albums","Athlete testimonials","Sponsor recap","Bridge to IRONMAN 70.3 Colombo"]]
+  ];
+  var pl=document.getElementById('phaseList'), pb=document.getElementById('phaseBody');
+  function pickPh(i){
+    Array.prototype.forEach.call(pl.children,function(b,j){b.setAttribute('aria-selected',j===i)});
+    pb.innerHTML='<p class="muted" style="margin-bottom:6px">'+ph[i][0]+'</p><h3>'+ph[i][1]+'</h3><div class="chips">'+ph[i][2].map(function(x){return '<span>'+x+'</span>'}).join('')+'</div>';
+  }
+  ph.forEach(function(p,i){var b=document.createElement('button');b.className='phase';b.setAttribute('role','tab');b.innerHTML='<small>'+p[0]+'</small><b>'+p[1]+'</b>';b.onclick=function(){pickPh(i);if(window.__fitCur)window.__fitCur()};pl.appendChild(b)});
+  pickPh(0);
+
+  // fit each slide to the screen
+  function fit(s){
+    var el=s.querySelector('.inner'); if(!el) return;
+    el.style.zoom=1;
+    var min=window.innerWidth<700?0.62:0.45;
+    for(var k=0;k<10;k++){
+      var ch=s.clientHeight, sh=s.scrollHeight;
+      if(sh<=ch+1) break;
+      var z=parseFloat(el.style.zoom)||1, nz=Math.max(min,z*(ch/sh)*0.985);
+      if(Math.abs(nz-z)<0.002) break;
+      el.style.zoom=nz;
+    }
+  }
+  function fitAll(){document.querySelectorAll('.slide').forEach(fit)}
+  window.__fitCur=function(){fitCur()};
+  function fitCur(){var c=document.querySelector('.slide.on'); if(c) fit(c)}
+  var rt; window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(fitAll,120)});
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(fitAll);
+  window.addEventListener('load',fitAll);
+
+  // deck navigation
+  var slides=document.querySelectorAll('.slide'), n=slides.length, idx=0;
+  var cur=document.getElementById('cur'), fill=document.getElementById('fill');
+  document.getElementById('tot').textContent=String(n).padStart(2,'0');
+  function go(i){
+    if(i<0||i>=n)return;
+    slides.forEach(function(s,j){s.classList.toggle('on',j===i);s.classList.toggle('back',j<i);s.setAttribute('aria-hidden',j!==i)});
+    idx=i; cur.textContent=String(i+1).padStart(2,'0');
+    fill.style.width=((i)/(n-1)*100)+'%';
+    document.getElementById('prev').disabled=i===0;
+    document.getElementById('next').disabled=i===n-1;
+    slides[i].scrollTop=0;
+    try{history.replaceState(null,'','#'+(i+1))}catch(e){}
+  }
+  document.getElementById('prev').onclick=function(){go(idx-1)};
+  document.getElementById('next').onclick=function(){go(idx+1)};
+  document.addEventListener('keydown',function(e){
+    if(e.target.closest&&e.target.closest('[role=tablist]')&&(e.key==='ArrowLeft'||e.key==='ArrowRight'))return;
+    if(e.key==='ArrowRight'||e.key==='PageDown'){go(idx+1)}
+    if(e.key==='ArrowLeft'||e.key==='PageUp'){go(idx-1)}
+    if(e.key==='Home')go(0); if(e.key==='End')go(n-1);
+  });
+  var sx=null,sy=null;
+  document.getElementById('stage').addEventListener('touchstart',function(e){sx=e.touches[0].clientX;sy=e.touches[0].clientY},{passive:true});
+  document.getElementById('stage').addEventListener('touchend',function(e){
+    if(sx===null)return; var dx=e.changedTouches[0].clientX-sx, dy=e.changedTouches[0].clientY-sy;
+    if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.5)go(idx+(dx<0?1:-1)); sx=null;
+  },{passive:true});
+  var h=parseInt((location.hash||'').slice(1),10); go(h>0&&h<=n?h-1:0); fitAll();
+
+  // theme toggle
+  var root=document.documentElement;
+  try{var t=localStorage.getItem('theme'); if(t)root.setAttribute('data-theme',t)}catch(e){}
+  document.getElementById('theme').onclick=function(){
+    var dark=root.getAttribute('data-theme')!=='light';
+    var nt=dark?'light':'dark'; root.setAttribute('data-theme',nt);
+    try{localStorage.setItem('theme',nt)}catch(e){}
+  };
+})();
+</script>
+</body>
+</html>
